@@ -1,0 +1,9 @@
+streamlit
+pandas
+requests
+beautifulsoup4
+yfinance
+transformers
+torch
+scipy
+python-telegram-bot
