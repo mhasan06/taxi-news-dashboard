@@ -4,6 +4,10 @@ from scraper import scrape_news_rss_au
 from collections import defaultdict
 from datetime import datetime, timedelta
 from emailer import send_company_alerts, send_last_24h_articles
+from streamlit_autorefresh import st_autorefresh
+
+# Refresh every 10 minutes (600,000 ms)
+st_autorefresh(interval=100000, key="datarefresh")
 
 # -----------------------------
 # Streamlit page config
