@@ -7,3 +7,6 @@ transformers
 torch
 scipy
 python-telegram-bot
+streamlit
+feedparser
+pandas
