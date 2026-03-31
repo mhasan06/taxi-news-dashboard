@@ -17,12 +17,32 @@ RSS_FEEDS = {
 # -----------------------------
 # KEYWORDS
 # -----------------------------
-KEYWORDS = ["uber", "taxi", "rideshare", "cab", "13cabs", "silver service", "a2b"]
+KEYWORDS = [
+    "uber", "taxi", "rideshare", "cab", "13cabs", "silver service",
+    "a2b", "lyft", "didi", "grab", "bolt", "taxify",
+    # NEW: payment-related terms included
+    "surcharge", "fee", "fees", "payment", "card charge", "transaction fee"
+]
+
+# NEW: Payment keywords
+PAYMENT_KEYWORDS = [
+    "surcharge", "surcharges", "fee", "fees",
+    "payment fee", "card fee", "credit card fee", "debit card fee",
+    "transaction fee", "processing fee", "merchant fee",
+    "service fee", "booking fee", "extra charge",
+    "fare increase", "fare change", "pricing change"
+]
 
 COMPANY_KEYWORDS = {
     "A2B": ["a2b", "a2b australia"],
     "13cabs": ["13cabs", "13 cabs"],
-    "Silver Service": ["silver service"]
+    "Silver Service": ["silver service"],
+    "Lyft": ["lyft"],
+    "Didi": ["didi"],
+    "Grab": ["grab"],
+    "Bolt": ["bolt"],
+    "Taxify": ["taxify"],
+    "GM Cabs": ["gm cabs", "gm taxis"],
 }
 
 STATE_KEYWORDS = {
@@ -42,21 +62,37 @@ STATE_KEYWORDS = {
 def analyze_article(title):
     title_lc = title.lower()
 
-    # Impact detection
-    negative_words = ["surge", "lawsuit", "ban", "fine", "crackdown", "shortage", "strike", "protest"]
-    positive_words = ["growth", "expand", "launch", "increase", "profit", "partnership", "upgrade"]
+    # Detect payment-related
+    is_payment_related = any(word in title_lc for word in PAYMENT_KEYWORDS)
 
-    if any(word in title_lc for word in negative_words):
+    negative_words = [
+        "surge", "lawsuit", "ban", "fine",
+        "crackdown", "shortage", "strike", "protest"
+    ]
+
+    positive_words = [
+        "growth", "expand", "launch",
+        "profit", "partnership", "upgrade"
+    ]
+
+    # Smarter logic for payment impact
+    if is_payment_related:
+        if any(w in title_lc for w in ["cut", "reduce", "scrap", "remove", "drop"]):
+            impact = "Positive"
+        elif any(w in title_lc for w in ["increase", "rise", "higher"]):
+            impact = "Negative"
+        else:
+            impact = "Negative"  # default = revenue risk
+    elif any(word in title_lc for word in negative_words):
         impact = "Negative"
     elif any(word in title_lc for word in positive_words):
         impact = "Positive"
     else:
         impact = "Neutral"
 
-    # Simple summary (cleaned title)
     summary = title.strip()
 
-    return summary, impact
+    return summary, impact, is_payment_related
 
 # -----------------------------
 # HELPERS
@@ -114,7 +150,7 @@ def scrape_news_rss_au():
             else:
                 published_dt = datetime.utcnow()
 
-            summary, impact = analyze_article(title)
+            summary, impact, is_payment_related = analyze_article(title)
 
             news.append({
                 "title": title,
@@ -124,7 +160,8 @@ def scrape_news_rss_au():
                 "source": source,
                 "company": detect_company(title),
                 "summary": summary,
-                "impact": impact
+                "impact": impact,
+                "payment_related": is_payment_related  # NEW FIELD
             })
 
     return news
