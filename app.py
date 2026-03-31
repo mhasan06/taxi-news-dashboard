@@ -35,21 +35,22 @@ except:
 articles = scrape_news_rss_au()
 
 # -----------------------------
-# Filter last 24 hours
+# Time filters
 # -----------------------------
 now = datetime.utcnow()
 last_24h = [a for a in articles if (now - a["published"]) < timedelta(hours=24)]
+last_7d = [a for a in articles if timedelta(hours=24) <= (now - a["published"]) < timedelta(days=7)]
 
 # -----------------------------
 # Sidebar: sections
 # -----------------------------
 section = st.sidebar.radio(
     "Select News Section",
-    ("🔥 Top News", "🟢 Last 24h", "🗺️ State News")
+    ("🔥 Top News", "🟢 Last 24h", "🟡 Last 7 Days", "🗺️ State News")
 )
 
 # -----------------------------
-# Top news (latest 3)
+# Top news (latest 3 from last 24h)
 # -----------------------------
 if section == "🔥 Top News":
     st.header("🔥 Top 3 Latest News")
@@ -74,6 +75,22 @@ elif section == "🟢 Last 24h":
             st.write(f"🏢 {item['company']}")
         st.markdown(f"[Read more]({item['link']})")
         st.markdown("---")
+
+# -----------------------------
+# Last 7 Days
+# -----------------------------
+elif section == "🟡 Last 7 Days":
+    st.header("🟡 News from the Last 7 Days (Excluding Last 24h)")
+    if not last_7d:
+        st.write("No news in the last 7 days (excluding last 24 hours).")
+    else:
+        for item in last_7d:
+            st.subheader(item["title"])
+            st.write(f"📅 {item['published']} | 📰 {item['source']} | 📍 {item['state']}")
+            if item.get("company"):
+                st.write(f"🏢 {item['company']}")
+            st.markdown(f"[Read more]({item['link']})")
+            st.markdown("---")
 
 # -----------------------------
 # State News
