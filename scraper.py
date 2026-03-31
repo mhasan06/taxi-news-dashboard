@@ -21,7 +21,9 @@ KEYWORDS = [
     "uber", "taxi", "rideshare", "cab", "13cabs", "silver service",
     "a2b", "lyft", "didi", "grab", "bolt", "taxify",
     # NEW: payment-related terms included
-    "surcharge", "taxi fee", "taxi fees", "taxi payment", "card charge", "transaction fee"
+    "surcharge", "taxi fee", "taxi fees", "taxi payment", "card charge", "transaction fee",
+     # NEW: taxi regulaion - 31-3-2026
+    "taxi regulation"
 ]
 
 # NEW: Payment keywords
