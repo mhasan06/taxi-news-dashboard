@@ -7,7 +7,9 @@ from datetime import datetime
 # RSS SOURCES
 # -----------------------------
 RSS_FEEDS = {
-    "Google News": "https://news.google.com/rss/search?q=uber+OR+taxi+OR+rideshare&hl=en-AU&gl=AU&ceid=AU:en",
+    "Google News": "https://news.google.com/rss/search?q=uber+OR+taxi+OR+Surcharge+OR+rideshare&hl=en-AU&gl=AU&ceid=AU:en",
+    # Added more search terms to capture payment-related news
+    # "Google News": "https://news.google.com/rss/search?q=(uber OR taxi OR 'A2B Australia' OR didi OR lyft OR 'GM cabs' OR rideshare OR surcharge OR payment OR 'trip cost')&hl=en-AU&gl=AU&ceid=AU:en",
     "ABC News": "https://www.abc.net.au/news/feed/51120/rss.xml",
     "Guardian AU": "https://www.theguardian.com/au/rss",
     "SMH": "https://www.smh.com.au/rss/feed.xml",
@@ -21,14 +23,12 @@ KEYWORDS = [
     "uber", "taxi", "rideshare", "cab", "13cabs", "silver service",
     "a2b", "lyft", "didi", "grab", "bolt", "taxify",
     # NEW: payment-related terms included
-    "surcharge", "taxi fee", "taxi fees", "taxi payment", "card charge", "transaction fee",
-     # NEW: taxi regulaion - 31-3-2026
-    "taxi regulation"
+    "surcharge", "Taxi fee", "Taxi fees", "Taxi payment", "card charge", "transaction fee"
 ]
 
 # NEW: Payment keywords
 PAYMENT_KEYWORDS = [
-    "surcharge", "surcharges", "fee", "fees",
+    "surcharge", "surcharges", "surcharges on credit card", "fee", "fees",
     "payment fee", "card fee", "credit card fee", "debit card fee",
     "transaction fee", "processing fee", "merchant fee",
     "service fee", "booking fee", "extra charge",
