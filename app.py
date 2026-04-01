@@ -15,8 +15,8 @@ st_autorefresh(interval=600000, key="refresh")
 # -----------------------------
 # Page config
 # -----------------------------
-st.set_page_config(page_title="A2B Australia", layout="wide")
-st.title("🚖 Australian Taxi / Rideshare News Alerts")
+st.set_page_config(page_title="Taxi News and Alerts", layout="wide")
+st.title("🚖  Taxi / Rideshare News Alerts")
 
 # -----------------------------
 # Last refreshed & version
