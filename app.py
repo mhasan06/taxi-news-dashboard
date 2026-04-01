@@ -53,8 +53,8 @@ section = st.sidebar.radio(
 # Top news (latest 3 from last 24h)
 # -----------------------------
 if section == "🔥 Top News":
-    st.header("🔥 Top 3 Latest News")
-    top_articles = sorted(last_24h, key=lambda x: x["published"], reverse=True)[:3]
+    st.header("🔥 Top 6 Latest News")
+    top_articles = sorted(last_24h, key=lambda x: x["published"], reverse=True)[:6]
     for item in top_articles:
         st.subheader(item["title"])
         st.write(f"📅 {item['published']} | 📰 {item['source']} | 📍 {item['state']}")
