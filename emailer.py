@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 # Recipients list
 # -----------------------------
 recipients = [
-    "mhasan06@gmail.com",
+   # "mhasan06@gmail.com",
     "mohammad.hasan@a2baustralia.com"
 ]
 
