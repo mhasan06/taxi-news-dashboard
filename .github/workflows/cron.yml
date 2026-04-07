@@ -1,8 +1,8 @@
-name: Send Taxi News Every 2 Hours
+name: Send Taxi News Every 8 Hours
 
 on:
   schedule:
-    - cron: "0 */2 * * *"
+    - cron: "0 */8 * * *"
   workflow_dispatch:
 
 jobs:
